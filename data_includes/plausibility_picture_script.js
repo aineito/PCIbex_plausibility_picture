@@ -39,8 +39,8 @@ PennController("instructions",
   newText("instructions","<p>In this test, you will see a sentence context and 4 pictures, "
           +"and your task is to rate how plausible each picture is to be mentioned after the context.</p>"
           +"<p>There will be many sets, so please try not to spend too much time on each picture.</p>"
-          +"<p>For example, if you see the context 'The man, who is very tall, will drink...', </p>"
-          +"<p>you may give a high rating for a picture of 'juice' or 'coffee' (because you may find it natural to say 'drink juice' or 'drink coffee'), "
+          +"<p>For example, if you see the context 'The man, who is very tall, will drink...', "
+          +"you may give a high rating for a picture of 'juice' or 'coffee' (because you may find it natural to say 'drink juice' or 'drink coffee'), "
           +"but a low rating for a picture of 'pizza' or 'house' (because you may find it unnatural to say 'drink pizza' or 'drink house').</p>")
      .settings.css("font-size", "20px")
      .print()
