@@ -1,5 +1,5 @@
-﻿Item,Picture_type,File_name
-1,Target,watch.jpg
-1,English_competitor,watch.jpg
-1,Chinese_competitor,watch.jpg
-1,Unrelated,watch.jpg
+﻿Item,Target,English_competitor,Chinese_competitor,Unrelated
+1,radio.jpg,ambulance.jpg,tulip.jpg,peach.jpg
+2,radio.jpg,ambulance.jpg,tulip.jpg,peach.jpg
+3,radio.jpg,ambulance.jpg,tulip.jpg,peach.jpg
+4,radio.jpg,ambulance.jpg,tulip.jpg,peach.jpg
