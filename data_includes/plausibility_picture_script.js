@@ -82,14 +82,6 @@ PennController("plausibility_picture",
    newCanvas("empty canvas", 1, 50) // add some space
        .print()
        ,
-   newImage("image", variable.File_name)
-       .settings.css("font-size", "20px")
-       .settings.center()
-       .print()
-       ,
-   newCanvas("empty canvas", 1, 10) // add some space
-      .print()
-      ,
   newImage("Target", variable.Target)
       .size(200,200)
       ,
