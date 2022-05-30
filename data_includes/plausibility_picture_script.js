@@ -36,29 +36,15 @@ PennController("instructions",
      .settings.css("font-size", "24px")
      .print()
      ,
-  newText("instructions","<p>In this test, you will see pictures, and your task is to type their names"
-          +" (how you would call what is depicted in each picture).</p>"
-          +"<p>There will be many pictures, so please try not to spend too much time and simply type the name that first comes to mind.</p>"
-          +"<p>There is no need to type an article (a, an, the).</p>")
+  newText("instructions","<p>In this test, you will see a sentence context and 4 pictures, "
+          +"and your task is to rate how plausible each picture is to be mentioned after the context.</p>"
+          +"<p>There will be many sets, so please try not to spend too much time on each picture.</p>"
+          +"<p>For example, if you see the context 'The man, who is very tall, will drink...', </p>"
+          +"<p>you may give a high rating for a picture of 'juice' or 'coffee' (because you may find it natural to say 'drink juice' or 'drink coffee'), "
+          +"but a low rating for a picture of 'pizza' or 'house' (because you may find it unnatural to say 'drink pizza' or 'drink house').</p>")
      .settings.css("font-size", "20px")
      .print()
      ,
-  newCanvas("empty canvas", 1, 10) // add some space
-     .print()
-     ,
-  newText("heading","EXAMPLE:")
-     .settings.css("font-size", "24px")
-     .print()
-     ,
-  newImage("eg_pic1","peach.jpeg")
-    .settings.center()
-    .print()
-    ,
-  newText("eg_pic1_name","peach")
-    .settings.center()
-    .settings.css("font-size", "30px")
-    .print()
-    ,
   newCanvas("empty canvas", 1, 10) // add some space
     .print()
     ,
