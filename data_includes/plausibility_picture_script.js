@@ -50,11 +50,11 @@ PennController("instructions",
      .settings.css("font-size", "24px")
      .print()
      ,
-  newImage("eg_pic1","watch.jpg")
+  newImage("eg_pic1","peach.jpg")
     .settings.center()
     .print()
     ,
-  newText("eg_pic1_name","watch")
+  newText("eg_pic1_name","peach")
     .settings.center()
     .settings.css("font-size", "30px")
     .print()
