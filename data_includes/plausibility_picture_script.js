@@ -1,6 +1,6 @@
 
 PennController.ResetPrefix(null);
-PennController.AddHost("https://github.com/aineito/PCIbex_picture_naming/")
+PennController.AddHost("https://github.com/aineito/PCIbex_plausibility_picture/")
 PennController.DebugOff()
 PennController.Sequence("welcome","demographics","instructions","plausibility_picture", "send", "final")
 
