@@ -23,12 +23,19 @@ PennController("demographics",
     .settings.log()
     .print()
     ,
+  newText("fullscreen_instruction","<p>When you click 'Continue', the browser will be full screen.</p>"
+        +"Please keep it full screen until the end of the test.")
+    .settings.css("font-size", "20px")
+    .print()
+    ,
   newButton("continue", "Continue")
     .settings.center()
     .print()
     .wait(
         getHtml("demographics").test.complete()
             .failure( getHtml("demographics").warn() ) )
+    ,
+    fullscreen()
     );
 
 PennController("instructions",
@@ -50,9 +57,8 @@ PennController("instructions",
     .print()
     ,
   newText("instructions2","<p>You will see a bar like this (without the labels) above each picture.</p>"
-        +"<p>Please move the cursor to the right to the extent you think the object is plausible to be mentioned, and "
-        +"move it to the left to the extent you think the object is implausible to be mentioned.</p>"
-        +"When you click 'Continue', the browser will be full screen. Please keep it full screen until the end of the test.")
+        +"Please move the cursor to the right to the extent you think the object is plausible to be mentioned, and "
+        +"move it to the left to the extent you think the object is implausible to be mentioned.")
     .settings.css("font-size", "20px")
     .print()
     ,
@@ -66,8 +72,6 @@ PennController("instructions",
     ,
     newCanvas("empty canvas", 1, 10) // add some space
       .print()
-      ,
-      fullscreen()
     );
 
 PennController.Template( PennController.GetTable("plausibility_picture_stimuli.csv"), // creates a template to be used for multiple trials; will use .csv in chunk_includes
