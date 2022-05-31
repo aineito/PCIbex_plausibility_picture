@@ -1,5 +1,5 @@
-﻿Item,Target,English_competitor,Chinese_competitor,Unrelated
-1,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
-2,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
-3,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
-4,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
+﻿Item,Condition,Context,Target,English_competitor,Chinese_competitor,Unrelated
+1,Predictable,The man will listen to the,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
+1,Unpredictable,The man will take the,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
+2,Predictable,The woman will eat the,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
+2,Unpredictable,The woman will see the,radio.jpeg,ambulance.jpeg,tulip.jpeg,peach.jpeg
