@@ -117,19 +117,19 @@ PennController("plausibility_picture",
      .log()
      ,
    newVar("rating_Target")
-       .set(getTextInput("scale_Target"))
+       .set(getScale("scale_Target").slider())
        .global()
        ,
    newVar("rating_English_competitor")
-       .set(getTextInput("scale_English_competitor"))
+       .set(getScale("scale_English_competitor").slider())
        .global()
        ,
    newVar("rating_Chinese_competitor")
-       .set(getTextInput("scale_Chinese_competitor"))
+       .set(getScale("scale_Chinese_competitor").slider())
        .global()
        ,
    newVar("rating_Unrelated")
-       .set(getTextInput("scale_Unrelated"))
+       .set(getScale("scale_Unrelated").slider())
        .global()
        ,
    newButton("Continue", "Continue")
