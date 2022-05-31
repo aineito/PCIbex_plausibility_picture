@@ -60,12 +60,13 @@ PennController("instructions",
 PennController.Template( PennController.GetTable("plausibility_picture_stimuli.csv"), // creates a template to be used for multiple trials; will use .csv in chunk_includes
                             variable =>
 PennController("plausibility_picture",
-    newText("reminder", "Please select for each picture how plausible it is to be mentioned after the given context and click 'Continue'")
+    newText("reminder", "Please move the curvor and select for each picture how plausible it is to be mentioned after the given context and click 'Continue'")
         .settings.css("font-size", "18px")
         .settings.center()
-        .print()
         ,
-   newCanvas("empty canvas", 1, 50) // add some space
+   newCanvas("empty canvas", "90vw", 80) // add some space
+       .add("center at 50%" , "center at 10%", getText("reminder"))
+       .add("center at 50%" , "center at 60%", nextText("Context"), variable.Context)
        .print()
        ,
   newImage("Target", variable.Target)
@@ -80,40 +81,32 @@ PennController("plausibility_picture",
   newImage("Unrelated", variable.Unrelated)
      .size(200,200)
      ,
-   newScale("scale_Target", "implausible", "plausible", 100)
+   newScale("scale_Target", 100)
        .slider()
        .labelsPosition("top")
-       .center()
-       .wait()
        ,
-   newScale("scale_English_competitor", "implausible", "plausible", 100)
+   newScale("scale_English_competitor", 100)
        .slider()
        .labelsPosition("top")
-       .center()
-       .wait()
        ,
-   newScale("scale_Chinese_competitor", "implausible", "plausible", 100)
+   newScale("scale_Chinese_competitor", 100)
        .slider()
        .labelsPosition("top")
-       .center()
-       .wait()
        ,
-   newScale("scale_Unrelated", "implausible", "plausible", 100)
+   newScale("scale_Unrelated", 100)
        .slider()
        .labelsPosition("top")
-       .center()
-       .wait()
        ,
-  newCanvas("pictures", 1000, 700)
-     .add(150, 150, getImage("Target") )
-     .add(650, 150, getImage("English_competitor") )
-     .add(650, 500, getImage("Chinese_competitor") )
-     .add(150, 500, getImage("Unrelated") )
-     .add(150, 50, getScale("scale_Target") )
-     .add(650, 50, getScale("scale_English_competitor") )
-     .add(650, 400, getScale("scale_Chinese_competitor") )
-     .add(150, 400, getScale("scale_Unrelated") )
-     .print()
+  newCanvas("pictures", "100vw", 700)
+     .add("center at 25%" , "center at 25%", getImage("Target") )
+     .add("center at 75%" , "center at 25%", getImage("English_competitor") )
+     .add("center at 75%" , "center at 75%", getImage("Chinese_competitor") )
+     .add("center at 25%" , "center at 75%", getImage("Unrelated") )
+     .add("center at 25%" , "center at 10%", getScale("scale_Target").slider() )
+     .add("center at 75%" , "center at 10%", getScale("scale_English_competitor").slider() )
+     .add("center at 75%" , "center at 60%", getScale("scale_Chinese_competitor").slider() )
+     .add("center at 25%" , "center at 60%", getScale("scale_Unrelated").slider() )
+     .print("center at 50vw" , "middle at 50vh")
      .log()
      ,
    newVar("rating_Target")
@@ -136,15 +129,11 @@ PennController("plausibility_picture",
         .settings.center()
         .print()
         .wait()
-        ,
-    getText("reminder")
-        .remove()
-        ,
-    getButton("Continue")
-        .remove()
       )
 
     .log("Item", variable.Item) // record item ID
+    .log("Condition", variable.Condition) // record item ID
+    .log("Context", variable.Context) // record item ID
     .log("Target_file", variable.Target) // record image name
     .log("English_competitor_file", variable.English_competitor) // record image name
     .log("Chinese_competitor_file", variable.Chinese_competitor) // record image name
