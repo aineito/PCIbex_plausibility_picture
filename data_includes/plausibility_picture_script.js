@@ -67,10 +67,8 @@ PennController("plausibility_picture",
         .settings.css("font-size", "18px")
         .settings.center()
         ,
-  newButton("Continue", "Continue")
-        .wait()
-        ,
-   newCanvas("main_screen",  "100vw", "100vh") // place everything in this canvas
+
+   newCanvas("main_screen",  "100vw", "95vh") // place everything in this canvas
        .add("center at 5%" , "center at 5%", newText("trialnumber", "No. " + variable.random_order)) //display trial number
        .add("center at 50%" , "center at 10%", getText("reminder"))
        .add("center at 50%" , "center at 15%", newText("Context", variable.Context).settings.css("font-size", "22px"))
@@ -85,11 +83,13 @@ PennController("plausibility_picture",
        .add("center at 75%" , "center at 65%", newScale("scale_Chinese_competitor", 100).slider() )
        .add("center at 25%" , "center at 65%", newScale("scale_Unrelated", 100).slider() )
 
-       .add("center at 50%" , "center at 95%", getButton("Continue") )
        .print("center at 50vw" , "middle at 50vh")
        .log()
        ,
-
+   newButton("Continue", "Continue")
+       .print()
+       .wait()
+       ,
    newVar("rating_Target")
        .set(getScale("scale_Target").slider())
        .global()
