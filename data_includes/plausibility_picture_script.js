@@ -4,7 +4,7 @@ PennController.AddHost("https://github.com/aineito/PCIbex_plausibility_picture/"
 PennController.DebugOff()
 PennController.Sequence("welcome","demographics","instructions","plausibility_picture", "send", "final")
 
-var showProgressBar = true;
+var showProgressBar = false;
 
 PennController("welcome",
   newHtml("intro", "welcome_screen.html")
@@ -63,26 +63,29 @@ PennController("instructions",
 PennController.Template( PennController.GetTable("plausibility_picture_stimuli.csv"), // creates a template to be used for multiple trials; will use .csv in chunk_includes
                             variable =>
 PennController("plausibility_picture",
-    newText("reminder", "Please move the curvor and select for each picture how plausible it is to be mentioned after the given context and click 'Continue'")
+    newText("reminder", "Please move the cursor and select for each picture how plausible it is to be mentioned after the given context and click 'Continue'")
         .settings.css("font-size", "18px")
         .settings.center()
         ,
-
+  newButton("Continue", "Continue")
+        .wait()
+        ,
    newCanvas("main_screen",  "100vw", "100vh") // place everything in this canvas
-       .add("center at 50%" , "center at 5%", getText("reminder"))
-       .add("center at 50%" , "center at 10%", newText("Context", variable.Context))
+       .add("center at 5%" , "center at 5%", newText("trialnumber", "No. " + variable.random_order)) //display trial number
+       .add("center at 50%" , "center at 10%", getText("reminder"))
+       .add("center at 50%" , "center at 15%", newText("Context", variable.Context).settings.css("font-size", "22px"))
 
-       .add("center at 25%" , "center at 25%", newImage("Target", variable.Target).size(200,200) )
-       .add("center at 75%" , "center at 25%", newImage("English_competitor", variable.English_competitor).size(200,200) )
-       .add("center at 75%" , "center at 75%", newImage("Chinese_competitor", variable.Chinese_competitor).size(200,200) )
-       .add("center at 25%" , "center at 75%", newImage("Unrelated", variable.Unrelated).size(200,200) )
+       .add("center at 25%" , "center at 40%", newImage("Target", variable.Target).size(200,200) )
+       .add("center at 75%" , "center at 40%", newImage("English_competitor", variable.English_competitor).size(200,200) )
+       .add("center at 75%" , "center at 80%", newImage("Chinese_competitor", variable.Chinese_competitor).size(200,200) )
+       .add("center at 25%" , "center at 80%", newImage("Unrelated", variable.Unrelated).size(200,200) )
 
-       .add("center at 25%" , "center at 15%", newScale("scale_Target", 100).slider() )
-       .add("center at 75%" , "center at 15%", newScale("scale_English_competitor", 100).slider() )
+       .add("center at 25%" , "center at 25%", newScale("scale_Target", 100).slider() )
+       .add("center at 75%" , "center at 25%", newScale("scale_English_competitor", 100).slider() )
        .add("center at 75%" , "center at 65%", newScale("scale_Chinese_competitor", 100).slider() )
        .add("center at 25%" , "center at 65%", newScale("scale_Unrelated", 100).slider() )
 
-       .add("center at 50%" , "center at 95%", newButton("Continue", "Continue").wait())
+       .add("center at 50%" , "center at 95%", getButton("Continue") )
        .print("center at 50vw" , "middle at 50vh")
        .log()
        ,
