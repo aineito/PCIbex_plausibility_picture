@@ -41,7 +41,8 @@ PennController("instructions",
           +"<p>There will be many sets, so please try not to spend too much time on each picture.</p>"
           +"<p>For example, if you see the context 'The man, who is very tall, will drink...', "
           +"you may give a high rating for a picture of 'juice' or 'coffee' (because you may find it natural to say 'drink juice' or 'drink coffee'), "
-          +"but a low rating for a picture of 'pizza' or 'house' (because you may find it unnatural to say 'drink pizza' or 'drink house').</p>")
+          +"but a low rating for a picture of 'pizza' or 'house' (because you may find it unnatural to say 'drink pizza' or 'drink house').</p>"
+          +"<p>When you click 'Continue', the browser will be full screen. Please keep it full screen until the end of the test.</p>")
      .settings.css("font-size", "20px")
      .print()
      ,
@@ -55,6 +56,8 @@ PennController("instructions",
     ,
     newCanvas("empty canvas", 1, 10) // add some space
       .print()
+      ,
+      fullscreen()
     );
 
 PennController.Template( PennController.GetTable("plausibility_picture_stimuli.csv"), // creates a template to be used for multiple trials; will use .csv in chunk_includes
@@ -64,51 +67,26 @@ PennController("plausibility_picture",
         .settings.css("font-size", "18px")
         .settings.center()
         ,
-   newCanvas("empty canvas", "90vw", 80) // add some space
-       .add("center at 50%" , "center at 10%", getText("reminder"))
-       .add("center at 50%" , "center at 60%", nextText("Context"), variable.Context)
-       .print()
+
+   newCanvas("main_screen",  "100vw", "100vh") // place everything in this canvas
+       .add("center at 50%" , "center at 5%", getText("reminder"))
+       .add("center at 50%" , "center at 10%", newText("Context", variable.Context))
+
+       .add("center at 25%" , "center at 25%", newImage("Target", variable.Target).size(200,200) )
+       .add("center at 75%" , "center at 25%", newImage("English_competitor", variable.English_competitor).size(200,200) )
+       .add("center at 75%" , "center at 75%", newImage("Chinese_competitor", variable.Chinese_competitor).size(200,200) )
+       .add("center at 25%" , "center at 75%", newImage("Unrelated", variable.Unrelated).size(200,200) )
+
+       .add("center at 25%" , "center at 15%", newScale("scale_Target", 100).slider() )
+       .add("center at 75%" , "center at 15%", newScale("scale_English_competitor", 100).slider() )
+       .add("center at 75%" , "center at 65%", newScale("scale_Chinese_competitor", 100).slider() )
+       .add("center at 25%" , "center at 65%", newScale("scale_Unrelated", 100).slider() )
+
+       .add("center at 50%" , "center at 95%", newButton("Continue", "Continue").wait())
+       .print("center at 50vw" , "middle at 50vh")
+       .log()
        ,
-  newImage("Target", variable.Target)
-      .size(200,200)
-      ,
-  newImage("English_competitor", variable.English_competitor)
-      .size(200,200)
-      ,
-  newImage("Chinese_competitor", variable.Chinese_competitor)
-      .size(200,200)
-      ,
-  newImage("Unrelated", variable.Unrelated)
-     .size(200,200)
-     ,
-   newScale("scale_Target", 100)
-       .slider()
-       .labelsPosition("top")
-       ,
-   newScale("scale_English_competitor", 100)
-       .slider()
-       .labelsPosition("top")
-       ,
-   newScale("scale_Chinese_competitor", 100)
-       .slider()
-       .labelsPosition("top")
-       ,
-   newScale("scale_Unrelated", 100)
-       .slider()
-       .labelsPosition("top")
-       ,
-  newCanvas("pictures", "100vw", 700)
-     .add("center at 25%" , "center at 25%", getImage("Target") )
-     .add("center at 75%" , "center at 25%", getImage("English_competitor") )
-     .add("center at 75%" , "center at 75%", getImage("Chinese_competitor") )
-     .add("center at 25%" , "center at 75%", getImage("Unrelated") )
-     .add("center at 25%" , "center at 10%", getScale("scale_Target").slider() )
-     .add("center at 75%" , "center at 10%", getScale("scale_English_competitor").slider() )
-     .add("center at 75%" , "center at 60%", getScale("scale_Chinese_competitor").slider() )
-     .add("center at 25%" , "center at 60%", getScale("scale_Unrelated").slider() )
-     .print("center at 50vw" , "middle at 50vh")
-     .log()
-     ,
+
    newVar("rating_Target")
        .set(getScale("scale_Target").slider())
        .global()
@@ -124,11 +102,6 @@ PennController("plausibility_picture",
    newVar("rating_Unrelated")
        .set(getScale("scale_Unrelated").slider())
        .global()
-       ,
-   newButton("Continue", "Continue")
-        .settings.center()
-        .print()
-        .wait()
       )
 
     .log("Item", variable.Item) // record item ID
