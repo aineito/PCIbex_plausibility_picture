@@ -37,15 +37,25 @@ PennController("instructions",
      .print()
      ,
   newText("instructions","<p>In this test, you will see a sentence context and 4 pictures, "
-          +"and your task is to rate how plausible each picture is to be mentioned after the context.</p>"
-          +"<p>There will be many sets, so please try not to spend too much time on each picture.</p>"
+          +"and your task is to rate how plausible each picture is to be mentioned after the context. "
+          +"There will be many sets, so please try not to spend too much time on each picture.</p>"
           +"<p>For example, if you see the context 'The man, who is very tall, will drink...', "
-          +"you may give a high rating for a picture of 'juice' or 'coffee' (because you may find it natural to say 'drink juice' or 'drink coffee'), "
-          +"but a low rating for a picture of 'pizza' or 'house' (because you may find it unnatural to say 'drink pizza' or 'drink house').</p>"
-          +"<p>When you click 'Continue', the browser will be full screen. Please keep it full screen until the end of the test.</p>")
+          +"you may give a high (plausible) rating for a picture of 'juice' or 'coffee' because you may find it natural to say 'drink juice' or 'drink coffee', "
+          +"but a low (implausible) rating for a picture of 'pizza' or 'house' because you may find it unnatural to say 'drink pizza' or 'drink house'.</p>")
      .settings.css("font-size", "20px")
      .print()
      ,
+  newImage("slider_instruction","slider.jpg")
+    .settings.center()
+    .print()
+    ,
+  newText("instructions2","<p>You will see a bar like this (without the labels) above each picture.</p>"
+        +"<p>Please move the cursor to the right to the extent you think the object is plausible to be mentioned, and "
+        +"move it to the left to the extent you think the object is implausible to be mentioned.</p>"
+        +"When you click 'Continue', the browser will be full screen. Please keep it full screen until the end of the test.")
+    .settings.css("font-size", "20px")
+    .print()
+    ,
   newCanvas("empty canvas", 1, 10) // add some space
     .print()
     ,
@@ -67,16 +77,16 @@ PennController("plausibility_picture",
         .settings.css("font-size", "18px")
         .settings.center()
         ,
-
    newCanvas("main_screen",  "100vw", "95vh") // place everything in this canvas
        .add("center at 5%" , "center at 5%", newText("trialnumber", "No. " + variable.random_order)) //display trial number
        .add("center at 50%" , "center at 10%", getText("reminder"))
-       .add("center at 50%" , "center at 15%", newText("Context", variable.Context).settings.css("font-size", "22px"))
+       .add("center at 50%" , "center at 17%", newText("Context", variable.Context).settings.css("font-size", "22px"))
 
-       .add("center at 25%" , "center at 40%", newImage("Target", variable.Target).size(200,200) )
-       .add("center at 75%" , "center at 40%", newImage("English_competitor", variable.English_competitor).size(200,200) )
-       .add("center at 75%" , "center at 80%", newImage("Chinese_competitor", variable.Chinese_competitor).size(200,200) )
-       .add("center at 25%" , "center at 80%", newImage("Unrelated", variable.Unrelated).size(200,200) )
+       .add("center at 25%" , "center at 40%", newImage("Target", variable.Target).size(150,150) )
+       .add("center at 75%" , "center at 40%", newImage("English_competitor", variable.English_competitor).size(150,150) )
+       .add("center at 75%" , "center at 80%", newImage("Chinese_competitor", variable.Chinese_competitor).size(150,150) )
+       .add("center at 25%" , "center at 80%", newImage("Unrelated", variable.Unrelated).size(150,150) )
+       .add("center at 50%" , "center at 60%", newImage("slider_instruction","slider.jpg"))
 
        .add("center at 25%" , "center at 25%", newScale("scale_Target", 100).slider() )
        .add("center at 75%" , "center at 25%", newScale("scale_English_competitor", 100).slider() )
@@ -84,26 +94,33 @@ PennController("plausibility_picture",
        .add("center at 25%" , "center at 65%", newScale("scale_Unrelated", 100).slider() )
 
        .print("center at 50vw" , "middle at 50vh")
-       .log()
        ,
    newButton("Continue", "Continue")
-       .print()
-       .wait()
+       .print("center at 50vw" , "middle at 95vh")
+       .wait(getScale("scale_Target").test.selected()
+            .and( getScale("scale_English_competitor").test.selected() )
+            .and( getScale("scale_Chinese_competitor").test.selected() )
+            .and( getScale("scale_Unrelated").test.selected() )
+            .failure(
+                  newText("scale_unselected","<b>Please rate all objects!</b>")
+                      .css("font-size", "20px")
+                      .color("red")
+                      .print("center at 50vw" , "middle at 90vh") ) )
        ,
    newVar("rating_Target")
-       .set(getScale("scale_Target").slider())
+       .set(getScale("scale_Target").slider().log("last"))
        .global()
        ,
    newVar("rating_English_competitor")
-       .set(getScale("scale_English_competitor").slider())
+       .set(getScale("scale_English_competitor").slider().log("last"))
        .global()
        ,
    newVar("rating_Chinese_competitor")
-       .set(getScale("scale_Chinese_competitor").slider())
+       .set(getScale("scale_Chinese_competitor").slider().log("last"))
        .global()
        ,
    newVar("rating_Unrelated")
-       .set(getScale("scale_Unrelated").slider())
+       .set(getScale("scale_Unrelated").slider().log("last"))
        .global()
       )
 
